@@ -4,7 +4,7 @@ object Player{
   val BOARD_ROWS = 4
   val BOARD_COLS = 4
   var stepSize: Float = 0.01f //step_size: 更新估计的步长
-  var epsilon: Float = 0.02f //epsilon: 贪婪策略的小概率
+  var epsilon: Float = 0.2f //epsilon: 贪婪策略的小概率
 
   private var states: Array[State.type ] = Array()
   private var greedy = Array[Boolean]()
