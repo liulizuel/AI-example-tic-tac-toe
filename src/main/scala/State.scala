@@ -11,7 +11,7 @@ class State() {
   def getWinner(): Int = this.winner
   def getEnd(): Boolean = this.end
   def getData(): Array[Array[Int]] = this.data
-
+   
 
   def hash(): Int ={
       if (this.hash_val == None){
