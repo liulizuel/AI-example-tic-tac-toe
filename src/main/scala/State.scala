@@ -6,6 +6,7 @@ class State() {
   private var winner : Int = 0
   private var hash_val : Int = 0
   private var end : Boolean = false
+  
   //private var all_states:Map[Int, (State.type, Boolean)] = Map()
 
   def getWinner(): Int = this.winner
@@ -18,7 +19,7 @@ class State() {
         this.hash_val = 0
       }
       val it = Iterator(this.data)
-      var a = 0
+      var a = 0 
       while(it.hasNext){
         this.hash_val = this.hash_val*3+a+1
         a += 1
