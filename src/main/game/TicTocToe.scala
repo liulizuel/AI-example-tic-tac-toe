@@ -28,10 +28,9 @@ object TicTocToe{
         this.hash_val = 0
       }
       val it = Iterator(this.data)
-      var a = 0
       while (it.hasNext) {
-        this.hash_val = this.hash_val * 3 + a + 1
-        a += 1
+        this.hash_val = this.hash_val * 3 + it.next() + 1
+        it.next() += 1
       }
       this.hash_val
     }
