@@ -62,7 +62,7 @@ object TicTocToe{
         //将二维数组某一行传到函数sum里面去
         var z = new Array[Int](BOARD_ROWS)
         for (b <- 0 until BOARD_ROWS) {
-          z(b) = this.data(a)(b)
+          z(b) = this.getdata()(a)(b)
         }
         results(index) = sum(z)
         index += 1
@@ -72,19 +72,19 @@ object TicTocToe{
         //将二维数组某一列传到函数sum里面去
         var z = new Array[Int](BOARD_COLS)
         for (b <- 0 until BOARD_COLS) {
-          z(b) = this.data(b)(a)
+          z(b) = this.getdata()(b)(a)
         }
         results(index) = sum(z)
         index += 1
       }
       //计算主对角线上的数值和
       for (a <- 0 until BOARD_ROWS) {
-        results(index) += this.data(a)(a)
+        results(index) += this.getdata()(a)(a)
       }
       index += 1
       //计算副对角线上的数值和
       for (a <- 0 until BOARD_ROWS) {
-        results(index) += this.data(a)(BOARD_ROWS - 1 - a)
+        results(index) += this.getdata()(a)(BOARD_ROWS - 1 - a)
       }
 
       //遍历result列表
@@ -106,7 +106,7 @@ object TicTocToe{
       //遍历整个二维数组，计算1和-1的个数，若总和与棋盘格子数量相同，则为平局
       for (a <- 0 until BOARD_ROWS) {
         for (b <- 0 until BOARD_COLS) {
-          if (this.data(a)(b) == 1 || this.data(a)(b) == -1) {
+          if (this.getdata()(a)(b) == 1 || this.getdata()(a)(b) == -1) {
             tie += 1
           }
         }
@@ -128,13 +128,13 @@ object TicTocToe{
         var out = "| "
         var token = " "
         for (j <- 0 until BOARD_COLS) {
-          if (this.data(i)(j) == 1) {
+          if (this.getdata()(i)(j) == 1) {
             token = "*"
           }
-          if (this.data(i)(j) == 0) {
+          if (this.getdata()(i)(j) == 0) {
             token = "0"
           }
-          if (this.data(i)(j) == -1) {
+          if (this.getdata()(i)(j) == -1) {
             token = "x"
           }
           out += token + " | "
@@ -150,10 +150,10 @@ object TicTocToe{
 
       for (a <- 0 until BOARD_ROWS) {
         for (b <- 0 until BOARD_COLS) {
-          new_state.data(a)(b) = this.data(a)(b)
+          new_state.getdata()(a)(b) = this.getdata()(a)(b)
         }
       }
-      new_state.data(i)(j) = symbol
+      new_state.getdata()(i)(j) = symbol
       new_state
     }
 
