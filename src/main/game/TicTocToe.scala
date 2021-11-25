@@ -12,7 +12,7 @@ object TicTocToe{
   class State() {
     private var data = Array.ofDim[Int](BOARD_ROWS, BOARD_COLS)
     private var winner: Int = 0
-    private var hash_val: Int = 0
+    private var hash_val: Int = -1
     private var end: Boolean = false
     //private var all_states:Map[Int, (State, Boolean)] = Map()
 
@@ -24,13 +24,19 @@ object TicTocToe{
 
 
     def hash(): Int = {
-      if (this.hash_val == None) {
+      if (this.hash_val == -1) {
         this.hash_val = 0
       }
-      val it = Iterator(this.data)
-      while (it.hasNext) {
-        this.hash_val = this.hash_val * 3 + it.next() + 1
-        it.next() += 1
+      var i, j = 0
+      for(i <- 0 until BOARD_ROWS){
+        for(j <- 0 until BOARD_COLS){
+          if(this.getData()(i)(j) == -1){
+            this.hash_val += this.hash_val * 3 + 2
+          }
+          else{
+            this.hash_val += this.hash_val * 3 + this.getData()(i)(j)
+          }
+        }
       }
       this.hash_val
     }
