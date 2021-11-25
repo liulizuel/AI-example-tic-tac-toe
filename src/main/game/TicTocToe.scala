@@ -50,7 +50,7 @@ object TicTocToe{
     }
 
     def is_end(): Boolean = {
-      if (this.end != None) {
+      if (this.end) {
         return this.end
       }
       //横向检测，纵向检测，两个对角线检测，共8个数据
