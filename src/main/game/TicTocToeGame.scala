@@ -1,6 +1,7 @@
 import scala.collection.mutable.ListBuffer
+import scala.io.StdIn.readLine
+
 object TicTocToeGame {
-  //global variables
   var players: Array[String] = Array(" o " ," x ")
   var current = 0
   val AI = 1
@@ -13,22 +14,23 @@ object TicTocToeGame {
   def main(args: Array[String]): Unit ={
     for(i<-0 to 2; j<-0 to 2) pos_list.append((i, j))
     while(winner == -1){
-      print_board(board)
+      print_board()
       if (current == AI) ai_player() else human_player()
       check_for_win()
-      switch_player()
+      //switches the players' players
+      current = (current + 1) % 2
     }
   }
 
   //this function prints the board after every move
-  def print_board(board: Array[Array[String]]): Unit ={
+  def print_board(): Unit ={
     println("-----------------------")
-    for (i <- 0 to 2; j <- 0 to 2){
-      print(board(i)(j))
-      if (j == 2) println()
-    }
+    board.foreach(line=>{
+      line.foreach(print)
+      println()
+    })
   }
-  //this function checks if any player has won
+  //if any player has won
   def check_for_win(): Unit ={
     //横竖向遍历
     for(i<- 0 to 2) if(the_same(Array((i, 0), (i, 1), (i, 2)))) game_end()
@@ -36,12 +38,7 @@ object TicTocToeGame {
     if(the_same(Array((0,0), (1,1), (2,2)))||the_same(Array((2,0), (1,1), (0,2)))) game_end()
     if (is_full(board) && winner == -1) game_end()
   }
-  //this function switches the players' players
-  def switch_player():Unit = {current = (current + 1) % 2}
 
-  //  def best_pos_for(player:Int, index: Int, max_value: Int){
-//    if(index == pos_list.length) return null
-//  }
   def ai_player(): Unit={
     //best choice
     val randomGen = new util.Random(System.currentTimeMillis)
@@ -50,10 +47,10 @@ object TicTocToeGame {
     board(pos._1)(pos._2) = players(current)
     pos_list.remove(index)
   }
+
   def human_player(): Unit={
-    val pos_input = scala.io.StdIn.readLine(s"Please place your %s? ".format(players(current)))
-    val pos = pos_input.split(",").map(_.toInt)
-    if (pos(0) != -1 && board(pos(0))(pos(1)) != can_place_label){
+    val pos = readLine(s"Please place your %s? ".format(players(current))).split(",").map(_.toInt)
+    if(board(pos(0))(pos(1)) != can_place_label){
       println("Illegal move! Try again!")
       human_player()
     }else{
@@ -70,8 +67,7 @@ object TicTocToeGame {
   def the_same(positions: Array[(Int, Int)]): Boolean ={
     var count_row = 0
     var count_col = 0
-    for (pos <- 0 to positions.length-1) {
-      var (i, j) = positions(pos)
+    for ((i, j) <- positions) {
       if(board(i)(j) == players(current)) count_row += 1
       if(board(j)(i) == players(current)) count_col += 1
       if(count_col == 3 || count_row ==3){
@@ -88,9 +84,10 @@ object TicTocToeGame {
   }
 
   def game_end(): Unit ={
-    print_board(board)
+    print_board()
     println("GAME OVER")
     if(winner == -1) println("It is a tie!")
     else println("%s is the winner!".format(players(winner)))
+    winner = 1
   }
 }
