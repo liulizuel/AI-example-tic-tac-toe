@@ -171,7 +171,7 @@ object tictactoe {
   }
 
   def main(args: Array[String]): Unit = {
-    println("按0-9出棋")
+    println("按1-9出棋")
     Init()
     while(true){
       input()
